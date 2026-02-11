@@ -16,10 +16,10 @@
         <div class="h-8 w-px bg-gray-200 mx-1"></div>
 
         <button mat-button [matMenuTriggerFor]="userMenu"
-            class="!px-2 !min-w-0 flex items-center gap-2 rounded-full hover:bg-gray-50">
+            class="!px-2 !min-w-0 flex flex-row-reverse justify-between items-center w-full gap-2 rounded-full hover:bg-gray-50">
             <img [src]="user?.avatar || 'https://ui-avatars.com/api/?name=' + user?.name"
                 class="w-8 h-8 rounded-full border border-gray-200 object-cover">
-            <div class="text-left hidden sm:block">
+            <div class="text-left hidden">
                 <p class="text-sm font-semibold text-gray-800 leading-tight">{{ user?.name }}</p>
                 <p class="text-xs text-gray-500 leading-tight capitalize">{{ user?.role }}</p>
             </div>
@@ -29,16 +29,16 @@
         <mat-menu #userMenu="matMenu" xPosition="before" class="mt-2 rounded-xl">
             <button mat-menu-item>
                 <mat-icon>person</mat-icon>
-                <span>Profile</span>
+                <span class="text-sm">Profile</span>
             </button>
             <button mat-menu-item>
                 <mat-icon>settings</mat-icon>
-                <span>Settings</span>
+                <span class="text-sm">Settings</span>
             </button>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="onLogout()">
                 <mat-icon class="text-red-500">logout</mat-icon>
-                <span class="text-red-500">Sign Out</span>
+                <span class="text-red-500 text-sm">Sign Out</span>
             </button>
         </mat-menu>
     </div>
