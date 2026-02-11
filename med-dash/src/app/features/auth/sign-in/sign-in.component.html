@@ -1,0 +1,63 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-100 p-4">
+    <mat-card class="w-full max-w-md p-8 rounded-2xl shadow-xl bg-white/90 backdrop-blur-sm border border-white/50">
+        <div class="text-center mb-8">
+            <div
+                class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-600/30">
+                <mat-icon class="text-white scale-150">local_hospital</mat-icon>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800 tracking-tight">Welcome Back</h1>
+            <p class="text-gray-500 mt-2">Sign in to your healthcare portal</p>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="doctor@hospital.com">
+                <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Please enter a valid email</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" [type]="hidePassword() ? 'password' : 'text'">
+                <button mat-icon-button matSuffix type="button" (click)="hidePassword.set(!hidePassword())">
+                    <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Select Role (Simulation)</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option value="patient">Patient</mat-option>
+                    <mat-option value="doctor">Doctor</mat-option>
+                    <mat-option value="admin">Admin</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="flex justify-between items-center text-sm">
+                <mat-checkbox color="primary">Remember me</mat-checkbox>
+                <a routerLink="/auth/forgot-password"
+                    class="text-indigo-600 hover:text-indigo-800 font-medium transition-colors">
+                    Forgot Password?
+                </a>
+            </div>
+
+            <button mat-flat-button color="primary" type="submit"
+                class="w-full py-6 text-lg rounded-xl mt-2 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30"
+                [disabled]="loginForm.invalid || isLoading()">
+                <span *ngIf="!isLoading()">Sign In</span>
+                <mat-spinner *ngIf="isLoading()" diameter="24" class="inline-block"></mat-spinner>
+            </button>
+
+        </form>
+
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            Don't have an account?
+            <a routerLink="/auth/sign-up" class="text-indigo-700 font-bold hover:underline">
+                Create Account
+            </a>
+        </div>
+    </mat-card>
+</div>

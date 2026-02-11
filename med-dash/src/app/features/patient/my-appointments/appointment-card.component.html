@@ -1,0 +1,41 @@
+<mat-card
+    class="rounded-2xl border border-gray-100 shadow-sm overflow-hidden tw-card hover:border-indigo-200 transition-all cursor-pointer group">
+    <div class="p-5 flex items-center gap-6">
+        <!-- Date Block -->
+        <div
+            class="w-16 h-16 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl flex flex-col items-center justify-center text-indigo-700 shadow-inner group-hover:from-indigo-600 group-hover:to-indigo-500 group-hover:text-white transition-all duration-300">
+            <span class="text-[10px] font-bold uppercase tracking-wider">{{ appointment.date | date:'MMM' }}</span>
+            <span class="text-2xl font-black">{{ appointment.date | date:'dd' }}</span>
+        </div>
+
+        <!-- Info Area -->
+        <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+                <span [class]="'px-2 py-0.5 text-[10px] font-bold rounded-full uppercase ' + 
+                    (appointment.status === 'upcoming' ? 'bg-green-50 text-green-600' : 'bg-gray-50 text-gray-500')">
+                    {{ appointment.status }}
+                </span>
+                <span class="text-gray-400 text-xs">•</span>
+                <span class="text-gray-500 text-xs font-semibold">{{ appointment.date | date:'hh:mm a' }}</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 leading-tight mb-0.5">{{ appointment.type }}</h3>
+            <p class="text-sm text-gray-500 font-medium">{{ appointment.doctorName }} • {{ appointment.specialty }}</p>
+        </div>
+
+        <!-- Action Icon -->
+        <div class="hidden sm:flex flex-col items-end gap-2">
+            <button mat-icon-button
+                class="text-gray-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all p-2">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="px-5 pb-5 flex items-center gap-3 sm:justify-end">
+        <button mat-stroked-button color="primary" *ngIf="appointment.status === 'upcoming'"
+            class="!rounded-md text-[13px] font-bold">Reschedule</button>
+        <button mat-flat-button color="warn" *ngIf="appointment.status === 'upcoming'"
+            class="!rounded-md text-[13px] font-bold">Cancel</button>
+        <button mat-button color="primary" *ngIf="appointment.status === 'completed'"
+            class="!rounded-md text-[13px] font-bold">View Report</button>
+    </div>
+</mat-card>

@@ -1,0 +1,82 @@
+<div class="h-full flex flex-col bg-slate-50/50 border-r border-gray-200/60 backdrop-blur-sm">
+    <!-- Logo Section -->
+    <div class="p-8 mb-4">
+        <div class="flex items-center gap-3 group cursor-pointer" routerLink="/">
+            <div
+                class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 transition-transform duration-300 group-hover:scale-110">
+                <mat-icon class="text-white">favorite</mat-icon>
+            </div>
+            <span class="text-xl font-bold tracking-tight text-gray-900 group-hover:text-indigo-600 transition-colors">
+                MedDash
+            </span>
+        </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 px-4 space-y-2 overflow-y-auto custom-scrollbar">
+        <!-- Patient Links -->
+        <ng-container *ngIf="userRole === 'patient'">
+            <div class="px-4 mb-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Main Menu</div>
+            <a routerLink="/patient/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                class="nav-item">
+                <mat-icon>grid_view</mat-icon>
+                <span class="font-semibold text-sm">Dashboard</span>
+            </a>
+            <a routerLink="/patient/appointments" routerLinkActive="active" class="nav-item">
+                <mat-icon>event_available</mat-icon>
+                <span class="font-semibold text-sm">Appointments</span>
+            </a>
+            <a routerLink="/patient/records" routerLinkActive="active" class="nav-item">
+                <mat-icon>description</mat-icon>
+                <span class="font-semibold text-sm">Medical Records</span>
+            </a>
+        </ng-container>
+
+        <!-- Doctor Links -->
+        <ng-container *ngIf="userRole === 'doctor'">
+            <div class="px-4 mb-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Clinical</div>
+            <a routerLink="/doctor/dashboard" routerLinkActive="active" class="nav-item">
+                <mat-icon>analytics</mat-icon>
+                <span class="font-semibold text-sm">Overview</span>
+            </a>
+            <a routerLink="/doctor/schedule" routerLinkActive="active" class="nav-item">
+                <mat-icon>calendar_today</mat-icon>
+                <span class="font-semibold text-sm">Schedule</span>
+            </a>
+            <a routerLink="/doctor/patients" routerLinkActive="active" class="nav-item">
+                <mat-icon>groups</mat-icon>
+                <span class="font-semibold text-sm">Patient List</span>
+            </a>
+        </ng-container>
+
+        <!-- Common Section -->
+        <div class="pt-6 mt-6 border-t border-gray-100">
+            <div class="px-4 mb-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Account</div>
+            <a routerLink="/settings" routerLinkActive="active" class="nav-item">
+                <mat-icon>settings_heart</mat-icon>
+                <span class="font-semibold text-sm">Settings</span>
+            </a>
+            <a routerLink="/notifications" routerLinkActive="active" class="nav-item">
+                <mat-icon>notifications_none</mat-icon>
+                <span class="font-semibold text-sm">Notifications</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Support Card -->
+    <div class="p-6 mt-auto">
+        <div
+            class="bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-2xl p-4 shadow-xl shadow-indigo-100 relative overflow-hidden group">
+            <div class="relative z-10">
+                <p class="text-white font-bold text-xs mb-1">Health Support</p>
+                <p class="text-indigo-100 text-[10px] leading-tight mb-3">Professional assistance available 24/7</p>
+                <button
+                    class="w-full bg-white/20 hover:bg-white/30 backdrop-blur-md text-white text-[10px] font-bold py-2 rounded-lg transition-colors">
+                    Get Assistance
+                </button>
+            </div>
+            <mat-icon
+                class="absolute -right-4 -bottom-4 text-white/10 scale-150 transition-transform duration-500 group-hover:rotate-12">support_agent</mat-icon>
+        </div>
+    </div>
+</div>

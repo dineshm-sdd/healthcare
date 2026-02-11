@@ -1,0 +1,94 @@
+<div class="max-w-6xl mx-auto">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">Appointment Manager</h1>
+            <p class="text-gray-500">Manage your schedule and patient requests</p>
+        </div>
+        <div class="flex gap-2">
+            <button mat-stroked-button class="rounded-xl">
+                <mat-icon>calendar_month</mat-icon>
+                Calendar View
+            </button>
+            <button mat-flat-button color="primary" class="rounded-xl">
+                <mat-icon>add</mat-icon>
+                Add Appointment
+            </button>
+        </div>
+    </div>
+
+    <mat-card class="rounded-2xl shadow-sm border border-gray-100 !bg-white overflow-hidden">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+            <mat-tab label="Upcoming & Pending">
+                <table mat-table [dataSource]="appointments()" class="w-full">
+
+                    <!-- Patient Column -->
+                    <ng-container matColumnDef="patient">
+                        <th mat-header-cell *matHeaderCellDef> Patient </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xs">
+                                    {{ element.patientName.charAt(0) }}
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-800">{{ element.patientName }}</p>
+                                    <p class="text-xs text-gray-500">{{ element.type }}</p>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <!-- Date Column -->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> Date & Time </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="flex flex-col">
+                                <span class="font-medium text-gray-800">{{ element.date | date:'mediumDate' }}</span>
+                                <span class="text-xs text-gray-500">{{ element.date | date:'shortTime' }}</span>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <!-- Status Column -->
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold capitalize" [ngClass]="{
+                  'bg-orange-50 text-orange-700': element.status === 'pending',
+                  'bg-green-50 text-green-700': element.status === 'confirmed',
+                  'bg-gray-100 text-gray-600': element.status === 'completed'
+                }">
+                                {{ element.status }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Actions Column -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> Actions </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="flex items-center gap-2" *ngIf="element.status === 'pending'">
+                                <button mat-icon-button color="primary" matTooltip="Accept">
+                                    <mat-icon>check_circle</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" matTooltip="Reject">
+                                    <mat-icon>cancel</mat-icon>
+                                </button>
+                            </div>
+                            <div *ngIf="element.status === 'confirmed'">
+                                <button mat-stroked-button color="primary" class="!px-4">Start</button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-50"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                        class="hover:bg-gray-50 transition-colors"></tr>
+                </table>
+            </mat-tab>
+            <mat-tab label="History">
+                <div class="p-8 text-center text-gray-500">History view not implemented in demo.</div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+</div>

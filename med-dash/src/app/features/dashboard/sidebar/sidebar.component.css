@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:host {
+    display: block;
+    height: 100%;
+}
+
+.mat-mdc-list-item {
+    border-radius: 0.75rem;
+    /* rounded-xl */
+    margin-bottom: 0.25rem;
+}
+
+.mat-mdc-list-item:hover {
+    background-color: rgb(249 250 251);
+    /* gray-50 */
+}
+
+.nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50/50;
+    text-decoration: none;
+}
+
+.nav-item mat-icon {
+    @apply w-5 h-5 transition-transform duration-300;
+    font-size: 20px;
+}
+
+.nav-item:hover mat-icon {
+    @apply scale-110;
+}
+
+.nav-item.active {
+    @apply bg-indigo-600 text-white shadow-lg shadow-indigo-200;
+}
+
+.nav-item.active mat-icon {
+    @apply text-white;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-200 rounded-full;
+}

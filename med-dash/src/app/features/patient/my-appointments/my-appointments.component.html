@@ -1,0 +1,62 @@
+<div class="space-y-8 animate-fade-in-up">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900 tracking-tight">My Appointments</h1>
+            <p class="text-gray-500 font-medium mt-1">Manage and track your healthcare schedule.</p>
+        </div>
+        <button mat-flat-button color="primary" class="!rounded-xl px-6 !py-6 shadow-lg shadow-indigo-100"
+            (click)="bookNewAppointment()">
+            <mat-icon class="mr-2">add</mat-icon>
+            Book New Appointment
+        </button>
+    </div>
+
+    <!-- Tabs Container -->
+    <div class="bg-white rounded-3xl p-2 shadow-sm border border-gray-100">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="custom-tabs">
+            <mat-tab label="Upcoming">
+                <div class="p-6 space-y-4">
+                    <div *ngIf="upcomingAppointments().length > 0; else emptyUpcoming"
+                        class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <app-appointment-card *ngFor="let apt of upcomingAppointments()"
+                            [appointment]="apt"></app-appointment-card>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Past History">
+                <div class="p-6 space-y-4">
+                    <div *ngIf="pastAppointments().length > 0; else emptyPast"
+                        class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <app-appointment-card *ngFor="let apt of pastAppointments()"
+                            [appointment]="apt"></app-appointment-card>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+    <!-- Empty States -->
+    <ng-template #emptyUpcoming>
+        <div class="text-center py-20">
+            <div
+                class="w-20 h-20 bg-indigo-50 rounded-3xl flex items-center justify-center mx-auto mb-6 text-indigo-500 scale-110">
+                <mat-icon class="!text-4xl h-10 w-10">calendar_today</mat-icon>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">No upcoming visits</h3>
+            <p class="text-gray-500 max-w-xs mx-auto mb-8">You don't have any appointments scheduled at the moment.</p>
+            <button mat-stroked-button color="primary" class="!rounded-xl" (click)="bookNewAppointment()">
+                Schedule Now
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #emptyPast>
+        <div class="text-center py-20">
+            <div class="w-20 h-20 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-6 text-gray-400">
+                <mat-icon class="!text-4xl h-10 w-10">history</mat-icon>
+            </div>
+            <p class="text-gray-500">No past appointment history found.</p>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,49 @@
+<div class="p-6 max-w-md bg-white">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-gray-900">Book Appointment</h2>
+        <button mat-icon-button (click)="onCancel()" class="text-gray-400">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Select Doctor</mat-label>
+            <mat-select formControlName="doctor">
+                <mat-option *ngFor="let doc of doctors" [value]="doc.name">
+                    {{ doc.name }} ({{ doc.specialty }})
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="grid grid-cols-2 gap-4">
+            <mat-form-field appearance="fill">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Time</mat-label>
+                <mat-select formControlName="time">
+                    <mat-option *ngFor="let t of times" [value]="t">{{ t }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Reason for Visit</mat-label>
+            <textarea matInput formControlName="reason" rows="3" placeholder="Describe your symptoms..."></textarea>
+        </mat-form-field>
+
+        <div class="flex gap-3 pt-2">
+            <button type="button" mat-button (click)="onCancel()"
+                class="flex-1 !py-6 rounded-xl border border-gray-100">Cancel</button>
+            <button type="submit" mat-flat-button color="primary" [disabled]="!appointmentForm.valid"
+                class="flex-1 !py-6 rounded-xl shadow-lg shadow-indigo-100">
+                Confirm Booking
+            </button>
+        </div>
+    </form>
+</div>

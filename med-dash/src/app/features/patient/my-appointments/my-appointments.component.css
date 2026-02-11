@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:host {
+    display: block;
+}
+
+::ng-deep .custom-tabs .mat-mdc-tab-header {
+    --mdc-tab-indicator-active-indicator-color: #6366f1;
+    --mat-tab-header-active-label-text-color: #6366f1;
+    --mat-tab-header-inactive-label-text-color: #64748b;
+    --mat-tab-header-active-ripple-color: rgba(99, 102, 241, 0.1);
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 0px;
+}
+
+::ng-deep .custom-tabs .mat-mdc-tab {
+    /* @apply !px-6 !py-4 transition-colors; */
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+}
+
+::ng-deep .custom-tabs .mat-mdc-tab-labels {
+    @apply gap-2;
+}

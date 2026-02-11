@@ -1,0 +1,59 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-100 p-4">
+    <mat-card class="w-full max-w-md p-8 rounded-2xl shadow-xl bg-white/90 backdrop-blur-sm border border-white/50">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 tracking-tight">Create Account</h1>
+            <p class="text-gray-500 mt-2">Join our healthcare platform today</p>
+        </div>
+
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="name" placeholder="Dr. John Doe">
+                <mat-error *ngIf="signupForm.get('name')?.hasError('required')">Name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="john@example.com">
+                <mat-error *ngIf="signupForm.get('email')?.hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="signupForm.get('email')?.hasError('email')">Please enter a valid email</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" [type]="hidePassword() ? 'password' : 'text'">
+                <button mat-icon-button matSuffix type="button" (click)="hidePassword.set(!hidePassword())">
+                    <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="signupForm.get('password')?.hasError('required')">Password is required</mat-error>
+                <mat-error *ngIf="signupForm.get('password')?.hasError('minlength')">Password must be at least 6
+                    characters</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>I am a...</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option value="patient">Patient</mat-option>
+                    <mat-option value="doctor">Doctor</mat-option>
+                </mat-select>
+                <mat-error *ngIf="signupForm.get('role')?.hasError('required')">Role is required</mat-error>
+            </mat-form-field>
+
+            <button mat-flat-button color="primary" type="submit"
+                class="w-full py-6 text-lg rounded-xl mt-4 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30 bg-indigo-600"
+                [disabled]="signupForm.invalid || isLoading()">
+                <span *ngIf="!isLoading()">Sign Up</span>
+                <mat-spinner *ngIf="isLoading()" diameter="24" class="inline-block"></mat-spinner>
+            </button>
+
+        </form>
+
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            Already have an account?
+            <a routerLink="/auth/sign-in" class="text-indigo-600 font-bold hover:underline">
+                Sign In
+            </a>
+        </div>
+    </mat-card>
+</div>
